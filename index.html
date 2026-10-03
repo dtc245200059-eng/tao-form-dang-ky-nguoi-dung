@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký người dùng | CodeGym</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4338ca;
+            --primary-gradient: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            --primary-light: #eef2ff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #cbd5e1;
+            --border-focus: #4f46e5;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --radius-md: 10px;
+            --radius-lg: 18px;
+            --shadow-card: 0 20px 40px -10px rgba(0, 0, 0, 0.08), 0 8px 16px -4px rgba(0, 0, 0, 0.04);
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #eef2ff 0%, #f8fafc 50%, #e0e7ff 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            border: 1px solid rgba(226, 232, 240, 0.9);
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: var(--primary-gradient);
+            padding: 2rem 2rem 1.75rem;
+            color: #ffffff;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(8px);
+            color: #ffffff;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 4px 14px;
+            border-radius: 9999px;
+            margin-bottom: 0.6rem;
+        }
+
+        .card-title {
+            font-size: 1.65rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+        }
+
+        .card-subtitle {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.88);
+            line-height: 1.5;
+        }
+
+        .card-body {
+            padding: 2rem;
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            border-radius: var(--radius-md);
+            padding: 0.875rem 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 0.825rem;
+            color: #1e40af;
+            line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+        }
+
+        .alert-icon {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        .form-group {
+            margin-bottom: 1.4rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .required-star {
+            color: #ef4444;
+            margin-left: 2px;
+        }
+
+        .form-control {
+            width: 100%;
+            height: 48px;
+            padding: 0 1rem;
+            font-size: 0.95rem;
+            font-family: inherit;
+            color: var(--text-main);
+            background-color: #ffffff;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            transition: var(--transition);
+            outline: none;
+        }
+
+        .form-control:hover {
+            border-color: #94a3b8;
+        }
+
+        .form-control:focus {
+            border-color: var(--border-focus);
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.14);
+        }
+
+        .form-control::placeholder {
+            color: #94a3b8;
+        }
+
+        /* Radio Options */
+        .radio-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 0.35rem;
+        }
+
+        .radio-card {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 11px 16px;
+            border: 1.5px solid var(--border-color);
+            border-radius: var(--radius-md);
+            background: #ffffff;
+            font-size: 0.925rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            user-select: none;
+        }
+
+        .radio-card:hover {
+            border-color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .radio-card input[type="radio"] {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+
+        .radio-card:has(input[type="radio"]:checked) {
+            border-color: var(--primary);
+            background: var(--primary-light);
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        /* Buttons */
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            flex: 1;
+            height: 48px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            text-decoration: none;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.28);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #4338ca 0%, #312e81 100%);
+            box-shadow: 0 6px 18px rgba(79, 70, 229, 0.38);
+            transform: translateY(-1px);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: #f1f5f9;
+            color: #475569;
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-secondary:hover {
+            background: #e2e8f0;
+            color: var(--text-main);
+            transform: translateY(-1px);
+        }
+
+        /* Endpoint details box */
+        .endpoint-info {
+            margin-top: 1.5rem;
+            padding-top: 1.25rem;
+            border-top: 1px dashed var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .endpoint-info code {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: #0f172a;
+            word-break: break-all;
+            margin-top: 4px;
+        }
+
+        .footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            font-size: 0.825rem;
+            color: var(--text-muted);
+        }
+
+        @media (max-width: 480px) {
+            .card-body {
+                padding: 1.5rem;
+            }
+            .btn-group {
+                flex-direction: column-reverse;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <main class="container">
+        <div class="card">
+            <!-- Header -->
+            <div class="card-header">
+                <span class="header-badge">Bài tập CodeGym</span>
+                <h1 class="card-title">Đăng ký người dùng</h1>
+                <p class="card-subtitle">Điền thông tin bên dưới để gửi dữ liệu đăng ký qua phương thức POST</p>
+            </div>
+
+            <!-- Form Body -->
+            <div class="card-body">
+                <div class="alert-info">
+                    <span class="alert-icon">ℹ️</span>
+                    <div>
+                        <strong>Yêu cầu bài tập:</strong> Form được thiết lập gửi dữ liệu lên máy chủ thử nghiệm với <code>method="POST"</code> và <code>action="http://demo.codegym.vn/6/registration_form/register.php"</code>.
+                    </div>
+                </div>
+
+                <!-- FORM ĐĂNG KÝ THEO ĐÚNG YÊU CẦU ĐỀ BÀI -->
+                <form action="http://demo.codegym.vn/6/registration_form/register.php" method="POST" id="registerForm">
+                    
+                    <!-- 1. Họ và tên: name="name" -->
+                    <div class="form-group">
+                        <label for="name" class="form-label">
+                            Họ và tên <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="text" 
+                            id="name" 
+                            name="name" 
+                            class="form-control" 
+                            placeholder="Nhập họ và tên đầy đủ..." 
+                            required
+                            autocomplete="name"
+                        >
+                    </div>
+
+                    <!-- 2. Email: name="email" -->
+                    <div class="form-group">
+                        <label for="email" class="form-label">
+                            Email <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email" 
+                            class="form-control" 
+                            placeholder="ví dụ: nguyenvana@gmail.com" 
+                            required
+                            autocomplete="email"
+                        >
+                    </div>
+
+                    <!-- 3. Số điện thoại: name="phone" -->
+                    <div class="form-group">
+                        <label for="phone" class="form-label">
+                            Số điện thoại <span class="required-star">*</span>
+                        </label>
+                        <input 
+                            type="tel" 
+                            id="phone" 
+                            name="phone" 
+                            class="form-control" 
+                            placeholder="ví dụ: 0912345678" 
+                            required
+                            autocomplete="tel"
+                        >
+                    </div>
+
+                    <!-- 4. Giới tính: name="gender" -->
+                    <div class="form-group">
+                        <label class="form-label">
+                            Giới tính <span class="required-star">*</span>
+                        </label>
+                        <div class="radio-group">
+                            <label class="radio-card" for="gender_male">
+                                <input type="radio" id="gender_male" name="gender" value="Nam" required checked>
+                                <span>👨 Nam</span>
+                            </label>
+
+                            <label class="radio-card" for="gender_female">
+                                <input type="radio" id="gender_female" name="gender" value="Nữ">
+                                <span>👩 Nữ</span>
+                            </label>
+
+                            <label class="radio-card" for="gender_other">
+                                <input type="radio" id="gender_other" name="gender" value="Khác">
+                                <span>✨ Khác</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Nút Đăng ký (Submit) & Nhập lại (Reset) -->
+                    <div class="btn-group">
+                        <button type="reset" class="btn btn-secondary" id="btnReset">
+                            ↺ Nhập lại
+                        </button>
+                        <button type="submit" class="btn btn-primary" id="btnSubmit">
+                            Đăng ký ➜
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Thông số kỹ thuật form -->
+                <div class="endpoint-info">
+                    <strong>Thông tin đích gửi (Endpoint):</strong><br>
+                    Phương thức: <code>POST</code><br>
+                    Action URL: <code>http://demo.codegym.vn/6/registration_form/register.php</code>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer">
+            <p>&copy; 2026 CodeGym Vietnam - [Bài tập] Tạo giao diện form đăng ký người dùng</p>
+        </footer>
+    </main>
+
+</body>
+</html>
